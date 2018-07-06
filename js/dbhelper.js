@@ -153,6 +153,18 @@ class DBHelper {
     return (`/img/${restaurant.photograph}`);
   }
 
+  static responsiveRestaurantImg(restaurant, image) {
+    let imageUrl = DBHelper.imageUrlForRestaurant(restaurant);
+    let urlBits = imageUrl.split(/(.*)(\.jpg)/).filter(val=>val !== "");
+    let lowResUrl = urlBits[0] + "_44" + urlBits[1];
+    let medResUrl = urlBits[0] + "_66" + urlBits[1];
+    image.srcset = `${lowResUrl} 352w, ${medResUrl} 528w, ${imageUrl} 800w`;
+    image.sizes = '(max-width: 352px) 352px, (max-width: 528px) 528px, 800px';
+    image.alt = 'restaurant photo';
+    image.className = 'restaurant-img';
+    image.src = imageUrl;  
+  }
+
   /**
    * Map marker for a restaurant.
    */
