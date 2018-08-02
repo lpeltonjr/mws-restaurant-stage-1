@@ -275,6 +275,17 @@ nav h1 a {
   color: #666;
 }
 
+/* ====================== Service Worker Related ====================== */
+.update-alert {
+  background-color: red;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 2px;
+}
+
 @media screen and (min-width: 800px)
 {
 	body {

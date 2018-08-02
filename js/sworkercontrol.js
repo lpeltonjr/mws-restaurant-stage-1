@@ -17,7 +17,20 @@ class sWorkerControl {
   //  create and display HTML form allowing user to select updating the site or ignoring us
   nagUserToUpdateSite() {
     if (this.sWorker && (this.sWorker.state === 'waiting')) {
+        
+        document.body.insertAdjacentHTML('afterbegin', `<div class="update-alert">
+        <span>An update to this site is available.</span>
+        <button class="install-sw">INSTALL</button>
+        <button class="dismiss-sw">DISMISS</button>
+        </div>`);
+        
+        document.querySelector(".install-sw").addEventListener('click', (event)=>{
+            document.querySelector(".update-alert").remove();
+        });
 
+        document.querySelector(".dismiss-sw").addEventListener('click', (event)=>{
+            document.querySelector(".update-alert").remove();
+        });
     }
   }
 
@@ -86,3 +99,4 @@ class sWorkerControl {
 
 let SWcontroller = new sWorkerControl('./sw.js');
 SWcontroller.registerWorker();
+SWcontroller.nagUserToUpdateSite();
