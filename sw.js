@@ -1,4 +1,4 @@
-const myCache = 'mySiteVersion002';
+const myCache = 'mySiteVersion004';
 const assets = [
     '/',
 //    '/index.html',
@@ -41,4 +41,30 @@ self.addEventListener('fetch', (event)=>{
 //  when the SWcontroller instance sends us a message to skip waiting and takeover
 self.addEventListener('message', (event)=>{
     if (event.data.command === 'skipWaiting') self.skipWaiting();
+});
+
+
+//  when this service worker first activates ...
+self.addEventListener('activate', (event)=>{
+
+    //  get the list of caches in the cache storage
+    event.waitUntil(caches.keys().then((list)=>{
+        //  the cache we implemented above is also included, so first remove it
+        //  from the list
+        let idx1 = list.indexOf(myCache);
+        let promiseList = [];
+        if (idx1 !== -1) {
+            list.splice(idx1, 1);
+            //  after removing the new cache from the list, delete all old versions
+            //  of the new cache, from old service workers
+            list.forEach((item)=>{
+                if (item.startsWith('mySiteVersion'))
+                {
+                    promiseList.push(caches.delete(item));
+                }
+            });
+        
+            return(Promise.all(promiseList));
+        }
+    }));
 });
