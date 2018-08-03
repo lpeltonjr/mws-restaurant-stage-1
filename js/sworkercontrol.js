@@ -16,7 +16,7 @@ class sWorkerControl {
   //  TODO:
   //  create and display HTML form allowing user to select updating the site or ignoring us
   nagUserToUpdateSite() {
-    if (this.sWorker && (this.sWorker.state === 'waiting')) {
+    if (this.sWorker && (this.sWorker.state === 'installed')) {
         
         document.body.insertAdjacentHTML('afterbegin', `<div class="update-alert">
         <span>An update to this site is available.</span>
@@ -25,6 +25,7 @@ class sWorkerControl {
         </div>`);
         
         document.querySelector(".install-sw").addEventListener('click', (event)=>{
+            this.sWorker.postMessage({command: 'skipWaiting'});
             document.querySelector(".update-alert").remove();
         });
 
@@ -34,8 +35,8 @@ class sWorkerControl {
     }
   }
 
-  //  initialize event listener for new service worker attaining the "waiting" state
-  launchListenerForWaiting() {
+  //  initialize event listener for new service worker attaining the "installed" state
+  launchListenerForInstalled() {
     if (this.sWorker) {
         this.sWorker.addEventListener('statechange', this.nagUserToUpdateSite.bind(this));
     }
@@ -47,7 +48,7 @@ class sWorkerControl {
       //  the serviceWorker state is assumed to be "installing"; grab a handle on it
       //  (or try), and if successful, lauch the event listener for its 'waiting' state
       this.sWorker = this.swRegObj.installing;
-      this.launchListenerForWaiting();
+      this.launchListenerForInstalled();
     }
   }
 
@@ -63,19 +64,21 @@ class sWorkerControl {
     //  worker and force the new one to become active
     if (navigator.serviceWorker.controller) {
       //  try to get a handle on the new service worker so an event listener can be
-      //  linked to it; apparently, we can't get a handle without knowing the current
-      //  state, which just seems inadequate
-      //  case 1 -- see if it's installing; if so, set a listener to trigger when it's waiting
+      //  linked to it; the handle comes from the registration state, which isn't the same
+      //  as the service worker state
+      //  case 1 -- see if it's installing; if so, set a listener to trigger when it's installed
       this.sWorker = swRegObj.installing;
-      if (this.sWorker) this.launchListenerForWaiting();
+      if (this.sWorker) this.launchListenerForInstalled();
       //  else new worker isn't installing, so we don't have a handle yet
       else {
-        //  case 2 -- if not installing, see if it's waiting already
+        //  case 2 -- if not installing, see if it's waiting already (which implies it's also "installed")
         this.sWorker = swRegObj.waiting;
+        //  no need for an event listener in case 2 -- just prompt user to update the site
         if (this.sWorker) {
           this.nagUserToUpdateSite();
-        //  case 3 -- not installing or waiting; state is pre-install; set the onupdatefound
-        //            event handler to set a listener when the state finally hits installing
+        //  case 3 -- not installing or waiting; set the onupdatefound
+        //            event handler to set a listener if the state finally hits installing; it might not,
+        //            if this is a redundant service worker
         } else {
 
           this.swRegObj.onupdatefound = this.onUpdateFound.bind(this);
@@ -99,4 +102,4 @@ class sWorkerControl {
 
 let SWcontroller = new sWorkerControl('./sw.js');
 SWcontroller.registerWorker();
-SWcontroller.nagUserToUpdateSite();
+//SWcontroller.nagUserToUpdateSite();

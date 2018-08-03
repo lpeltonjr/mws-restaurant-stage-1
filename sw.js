@@ -16,7 +16,7 @@ self.addEventListener('install', (event)=>{
     event.waitUntil(caches.open(myCache).then(cache=>cache.addAll(assets)));
 });
 
-//  intercept fetch events and supply reponse from cache, if possi
+//  intercept fetch events and supply reponse from cache, if possible
 self.addEventListener('fetch', (event)=>{
 
     caches.open(myCache).then((cache)=>{
@@ -36,4 +36,9 @@ self.addEventListener('fetch', (event)=>{
             });
         });
     });
+});
+
+//  when the SWcontroller instance sends us a message to skip waiting and takeover
+self.addEventListener('message', (event)=>{
+    if (event.data.command === 'skipWaiting') self.skipWaiting();
 });
