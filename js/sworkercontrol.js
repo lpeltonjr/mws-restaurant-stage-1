@@ -4,7 +4,6 @@ class sWorkerControl {
   //  pass in path to the JavaScript service worker and path defining its scope
   constructor(workerPath, scopeStr) {
     if (!scopeStr) scopeStr = './';
-
     this.workerPath = workerPath;
     this.scope = {scope: scopeStr};
     //  ServiceWorkerRegistrationObject
@@ -100,6 +99,6 @@ class sWorkerControl {
 
 }
 
-let SWcontroller = new sWorkerControl('./sw.js');
+let SWcontroller = new sWorkerControl('/sw.js');
 SWcontroller.registerWorker();
 //SWcontroller.nagUserToUpdateSite();
