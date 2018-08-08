@@ -1,24 +1,35 @@
-const myCache = 'mySiteVersion004';
+const myCache = 'mySiteVersion001';
 const assets = [
     '/',
-//    '/index.html',
-//    '/restaurant.html',
-    'js/dbhelper.js',
-    'js/main.js',
-    'js/restaurant_info.js',
-    'js/sworkercontrol.js',
-    'data/restaurants.json',
-    'css/styles.css'
+    'index.html',
+    'restaurant.html',
+    'sw.js',
+//  '/js/',
+    '/js/dbhelper.js',
+    '/js/main.js',
+    '/js/restaurant_info.js',
+    '/js/sworkercontrol.js',
+//  '/data/',
+    '/data/restaurants.json',
+//  '/css/',
+    '/css/styles.css'
 ];
 
 //  cache most assets on install
 self.addEventListener('install', (event)=>{
-    event.waitUntil(caches.open(myCache).then(cache=>cache.addAll(assets)));
+    event.waitUntil(caches.open(myCache).then(
+        cache=>cache.addAll(assets))//.catch(
+        /*    e=>{
+                console.log(assets);
+                console.log(e);
+            }
+        ) */
+    );
 });
 
 //  intercept fetch events and supply reponse from cache, if possible
 self.addEventListener('fetch', (event)=>{
-
+//  console.log(event.request.url);
     caches.open(myCache).then((cache)=>{
         cache.match(event.request).then((response)=>{
             if (response) return(response);
