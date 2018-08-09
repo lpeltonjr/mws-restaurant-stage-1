@@ -54,7 +54,7 @@ class sWorkerControl {
   //    triggers chain of events that may result in removal of an outdated service worker and
   //    immediate launch of the new service worker
   prepOldWorkerRemoval(swRegObj) {
-    console.log(this);
+    //console.log(this);
     //  latch reference to the ServiceWorkerRegistration object, so we can keep using it
     this.swRegObj = swRegObj;
 

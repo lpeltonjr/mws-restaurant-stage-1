@@ -1,9 +1,9 @@
-const myCache = 'mySiteVersion001';
+const myCache = 'mySiteVersion002';
 const assets = [
     '/',
     'index.html',
     'restaurant.html',
-    'sw.js',
+//  'sw.js',
 //  '/js/',
     '/js/dbhelper.js',
     '/js/main.js',
