@@ -12,7 +12,7 @@ class sWorkerControl {
     this.sWorker = null;
   }
 
-  //  TODO:
+  
   //  create and display HTML form allowing user to select updating the site or ignoring us
   nagUserToUpdateSite() {
     if (this.sWorker && (this.sWorker.state === 'installed')) {
