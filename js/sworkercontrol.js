@@ -26,6 +26,7 @@ class sWorkerControl {
         document.querySelector(".install-sw").addEventListener('click', (event)=>{
             this.sWorker.postMessage({command: 'skipWaiting'});
             document.querySelector(".update-alert").remove();
+            document.location.reload();
         });
 
         document.querySelector(".dismiss-sw").addEventListener('click', (event)=>{
