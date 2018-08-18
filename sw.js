@@ -1,18 +1,19 @@
 const myCache = 'mySiteVersion002';
 const assets = [
-    '/',
-    '/index.html',
-    '/restaurant.html',
+    //'http://localhost:8000/',
+    './',
+    './index.html',
+    './restaurant.html',
 //  'sw.js',
-//  '/js/',
-    '/js/dbhelper.js',
-    '/js/main.js',
-    '/js/restaurant_info.js',
-    '/js/sworkercontrol.js',
-//  '/data/',
-    '/data/restaurants.json',
-//  '/css/',
-    '/css/styles.css'
+    './js/',
+    './js/dbhelper.js',
+    './js/main.js',
+    './js/restaurant_info.js',
+    './js/sworkercontrol.js',
+    './data/',
+    './data/restaurants.json',
+    './css/',
+    './css/styles.css'
 ];
 
 //  cache most assets on install
@@ -48,6 +49,10 @@ self.addEventListener('fetch', (event)=>{
                         }
                     );
                 }
+            ).catch(
+                (error)=>{
+                    console.log(error);
+                }
             );
         }
     );
@@ -55,7 +60,9 @@ self.addEventListener('fetch', (event)=>{
 
 //  when the SWcontroller instance sends us a message to skip waiting and takeover
 self.addEventListener('message', (event)=>{
-    if (event.data.command === 'skipWaiting') self.skipWaiting();
+    if (event.data.command === 'skipWaiting') {
+        self.skipWaiting();
+    }
 });
 
 
@@ -83,5 +90,7 @@ self.addEventListener('activate', (event)=>{
                 return(Promise.all(promiseList));
             }
         }
+    ).then(
+        ()=>self.clients.claim()
     ));
 });

@@ -3,7 +3,7 @@ class sWorkerControl {
 
   //  pass in path to the JavaScript service worker and path defining its scope
   constructor(workerPath, scopeStr) {
-    if (!scopeStr) scopeStr = './';
+    
     this.workerPath = workerPath;
     this.scope = {scope: scopeStr};
     //  ServiceWorkerRegistrationObject
@@ -12,7 +12,13 @@ class sWorkerControl {
     this.sWorker = null;
   }
 
-  
+  reloadForGoodMeasure() {
+    if (this.sWorker && (this.sWorker.state === 'activated')) {
+      //this.sWorker.removeEventListener('statechange', this.reloadForGoodMeasure.bind(this));
+      document.location.reload();
+    }
+  }
+
   //  create and display HTML form allowing user to select updating the site or ignoring us
   nagUserToUpdateSite() {
     if (this.sWorker && (this.sWorker.state === 'installed')) {
@@ -26,7 +32,9 @@ class sWorkerControl {
         document.querySelector(".install-sw").addEventListener('click', (event)=>{
             this.sWorker.postMessage({command: 'skipWaiting'});
             document.querySelector(".update-alert").remove();
-            document.location.reload();
+            //  when the service worker state changes to "activated", reload the page so it will
+            //  cache all assets
+            this.sWorker.addEventListener('statechange', this.reloadForGoodMeasure.bind(this));
         });
 
         document.querySelector(".dismiss-sw").addEventListener('click', (event)=>{
@@ -95,11 +103,13 @@ class sWorkerControl {
       //  register the service worker, setting its scope to the whole website, then set-up to prompt
       //  the user to update the website and launch the new service worker immediately
       navigator.serviceWorker.register(this.workerPath, this.scope).then(this.prepOldWorkerRemoval.bind(this));
+      //navigator.serviceWorker.register("sw.js", {scope: './'}).then(this.prepOldWorkerRemoval.bind(this));
+      //console.log(document.URL);
     }
   }
 
 }
 
-let SWcontroller = new sWorkerControl('/sw.js');
+let SWcontroller = new sWorkerControl('sw.js', './');
 SWcontroller.registerWorker();
 //SWcontroller.nagUserToUpdateSite();
