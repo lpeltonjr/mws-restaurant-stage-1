@@ -271,6 +271,17 @@ nav h1 a {
 #restaurant-container, #reviews-container {
   width: 100%;
   margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+#restaurant-identity {
+  display: flex;
+  flex-direction: column;
+}
+
+#restaurant-dl {
+  margin-left: 0;
 }
 
 #reviews-container {
@@ -328,6 +339,15 @@ nav h1 a {
 		margin-right:	auto;
 		margin-left:	auto;
   }
+
+  #restaurant-identity {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  #restaurant-dl {
+    margin-left: 10px;
+  } 
 }
 
 @media screen and (min-width: 450px)
@@ -341,7 +361,6 @@ nav h1 a {
   #restaurants-list li {
     max-width: 40%;
   }
-  
   #reviews-list {
     flex-direction: row;
   }
