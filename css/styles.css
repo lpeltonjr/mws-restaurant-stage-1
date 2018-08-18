@@ -340,5 +340,9 @@ nav h1 a {
   }
   #restaurants-list li {
     max-width: 40%;
-  }  
+  }
+  
+  #reviews-list {
+    flex-direction: row;
+  }
 }
