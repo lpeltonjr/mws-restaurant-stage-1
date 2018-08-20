@@ -1,6 +1,5 @@
 const myCache = 'mySiteVersion002';
 const assets = [
-    //'http://localhost:8000/',
     './',
     './index.html',
     './restaurant.html',
@@ -27,7 +26,7 @@ self.addEventListener('install', (event)=>{
 self.addEventListener('fetch', (event)=>{
     caches.open(myCache).then(
         (cache)=>{
-            cache.match(event.request, {ignoreSearch: true}).then(
+            cache.match(event.request, {ignoreSearch: true, ignoreVary: true}).then(
                 (response)=>{
                     if (response) return(response);
                     //  if response can't be supplied from cache, get it off the

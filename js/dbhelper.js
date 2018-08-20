@@ -153,6 +153,10 @@ class DBHelper {
     return (`/img/${restaurant.photograph}`);
   }
 
+  //  this may violate a design pattern by creating DOM content from the database,
+  //  but it could be argued (and I would argue) that moving this outside the database
+  //  handling requires that an external function presume what's contained in the
+  //  database, which defeats the purpose of having a database
   static responsiveRestaurantImg(restaurant, image) {
     let imageUrl = DBHelper.imageUrlForRestaurant(restaurant);
     let urlBits = imageUrl.split(/(.*)(\.jpg)/).filter(val=>val !== "");
@@ -160,7 +164,7 @@ class DBHelper {
     let medResUrl = urlBits[0] + "_66" + urlBits[1];
     image.srcset = `${lowResUrl} 352w, ${medResUrl} 528w, ${imageUrl} 800w`;
     image.sizes = '(max-width: 352px) 352px, (max-width: 528px) 528px, 800px';
-    image.alt = 'restaurant photo';
+    image.alt = restaurant.photo_alt;
     image.className = 'restaurant-img';
     image.src = imageUrl;  
   }
