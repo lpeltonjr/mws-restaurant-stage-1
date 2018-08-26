@@ -189,7 +189,7 @@ nav h1 a {
   max-width: 100%;
   object-fit: contain;
 }
-#restaurants-list li h1 {
+#restaurants-list li h2 {
   color: white;
   font-family: Arial,sans-serif;
   /*font-size: 14pt;*/
@@ -288,7 +288,7 @@ nav h1 a {
   background-color: black;
 }
 
-#reviews-container h2 {
+#reviews-container h3 {
   color: white;
   /*font-size: 24pt;*/
   font-size: 1.5em;

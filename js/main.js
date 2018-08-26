@@ -162,7 +162,7 @@ createRestaurantHTML = (restaurant) => {
   DBHelper.responsiveRestaurantImg(restaurant, image);
   li.append(image);
 
-  const name = document.createElement('h1');
+  const name = document.createElement('h2');
   name.innerHTML = restaurant.name;
   li.append(name);
 
@@ -190,6 +190,11 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     // Add marker to the map
     const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.newMap);
     marker.on("click", onClick);
+    marker.on("keypress", (e)=>{
+      if (e.originalEvent.key === "Enter") {
+        onClick();
+      }
+    });
     function onClick() {
       window.location.href = marker.options.url;
     }
