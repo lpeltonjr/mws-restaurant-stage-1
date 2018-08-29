@@ -28,7 +28,7 @@ In a terminal, check the version of Python you have: `python -V`. If you have Py
 
 ##  Notes
 
-I haven't added any tabindex attributes to HTML landmarks.  The rubric perhaps requires it, but they aren't required to navigate using a screenreader.  I spent significant time learning to use ChromeVox key navigation in order to determine that the site can be navigated adequately with Shift-Alt-arrows key combinations.
+I haven't added any tabindex attributes to HTML landmarks.  The rubric perhaps requires it, but they aren't required to navigate using a screenreader.  I spent significant time learning to use ChromeVox key navigation in order to determine that the site can be navigated adequately with Shift-Alt-arrow key combinations.
 
 The first reviewer claimed to have difficulty loading the page offline.  I've tested it over and over and experimented with cache options.  It works as well as I can get it to work.  If I'm doing something wrong, I am open to feedback.  I added a page reload as suggested in the first review notes, but I don't see that it changed much.  I can reload the site most times in offline mode.  Sometimes, I have difficulty.  I don't know why.
 

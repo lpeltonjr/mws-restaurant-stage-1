@@ -1,4 +1,4 @@
-const myCache = 'mySiteVersion002';
+const myCache = 'mySiteVersion001';
 const assets = [
     './',
     './index.html',
