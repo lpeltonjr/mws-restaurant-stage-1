@@ -1,4 +1,4 @@
-const myCache = 'mySiteVersion001';
+const myCache = 'mySiteVersion002';
 const assets = [
     './',
     './index.html',
@@ -62,22 +62,27 @@ self.addEventListener('fetch', (event)=>{
         caches.open(myCache)
         .then(cache=>cache.match(event.request))
         .then(response=>{
+            //  create a closure around this variable to clone the response
+            //  to the fetch below; the clone is cached but the actual response
+            //  is returned to the website before the cache promise chain is fulfilled
+            let resplcl;
+
             //  if the request/response couldn't be located in the cached fetch
             //  events, then go ahead and fetch it online and then cache it for next time
             if (!response) {
-                return (
-                    fetch(event.request)
-                    .then(response=>{
-                        caches.open(myCache)
-                        .then(cache=>cache.put(event.request, response.clone()));
-                        return (response);
-                    })
-                );
+                
+                response =  fetch(event.request)
+                            .then(resp=>{
+                                resplcl = resp.clone();
+                                caches.open(myCache)
+                                .then(cache=>cache.put(event.request, resplcl));
+                                return (resp);
+                            });
             //  but if the request/response were located in the cache, supply the cached response
             //  to the browser
-            }   else {
-                return (response);
             }
+            
+            return (response);
         })
     );
 });
