@@ -20,8 +20,8 @@
   </header>
 
   <main id="maincontent">
-    <section id="map-container" role="application">
-      <div id='map' style="width: 100%; min-height: 300px"></div>
+    <section id="map-container">
+      <div id='map' role="application" style="width: 100%; min-height: 300px"></div>
       <script>
       mapboxgl.accessToken = 'pk.eyJ1IjoiYmxhdGluaTg4OCIsImEiOiJjamliMmp3Z2wxNWN4M3BzOTgyb3llNTl5In0.RtHXr5f-seW2nw1BpCwM4g';
       var map = new mapboxgl.Map({
@@ -35,10 +35,10 @@
         <h2>Filter Results</h2>
       </div>
       <div id="main-nav" class="filter-options" tabindex="-1">
-        <select id="neighborhoods-select" name="neighborhoods" aria-label="neighborhoods" onchange="updateRestaurants()">
+        <select id="neighborhoods-select" name="neighborhoods" aria-label="Filter restaurants by neighborhood" onchange="updateRestaurants()">
           <option value="all">All Neighborhoods</option>
         </select>
-        <select id="cuisines-select" name="cuisines" aria-label="cuisines" onchange="updateRestaurants()">
+        <select id="cuisines-select" name="cuisines" aria-label="Filter restaurants by cuisine" onchange="updateRestaurants()">
           <option value="all">All Cuisines</option>
         </select>
       </div>
