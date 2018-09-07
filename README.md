@@ -28,9 +28,9 @@ In a terminal, check the version of Python you have: `python -V`. If you have Py
 
 ##  Notes
 
-I haven't added any tabindex attributes to HTML landmarks.  The rubric perhaps requires it, but they aren't required to navigate using a screenreader.  I spent significant time learning to use ChromeVox key navigation in order to determine that the site can be navigated adequately with Shift-Alt-arrow key combinations.
+As it is a requirement of the project, I've made virtually everything focusable via "tabindex='0'".  This is confusing to me, since the course material clearly states that adding focus to every element is undesirable.  It's stated in the section on using screen readers properly, which I had to watch multiple times as I tried to figure out how to use the keyboard with ChromeVox.
 
-The first reviewer claimed to have difficulty loading the page offline.  I've tested it over and over and experimented with cache options.  It works as well as I can get it to work.  If I'm doing something wrong, I am open to feedback.  I added a page reload as suggested in the first review notes, but I don't see that it changed much.  I can reload the site most times in offline mode.  Sometimes, I have difficulty.  I don't know why.
+It took a long time of debugging by fits and starts when I had the time before I found the bug in my asynchronous JavaScript that kept the service worker from caching the page correctly.  Rather than rewrite the service worker, as the previous reviewer suggested, I just kept working with it until I located the problems.  Probably, I could have finished much sooner if I had rewritten the script, but I honestly couldn't understand why it wasn't working.  I kept reading over a 'waitUntil' which should have been a 'respondWith", and then I was getting tripped-up by the fact that responses were being returned and consumed immediately, before "then" callbacks were trying to clone them.
 
 
 
