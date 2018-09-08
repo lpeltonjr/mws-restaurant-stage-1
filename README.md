@@ -28,9 +28,9 @@ In a terminal, check the version of Python you have: `python -V`. If you have Py
 
 ##  Notes
 
-As it is a requirement of the project, I've made virtually everything focusable via "tabindex='0'".  This is confusing to me, since the course material clearly states that adding focus to every element is undesirable.  It's stated in the section on using screen readers properly, which I had to watch multiple times as I tried to figure out how to use the keyboard with ChromeVox.
+As it is a requirement of the project, I've made virtually everything focusable via "tabindex='0'".  This is confusing to me, since the course material clearly states that adding focus to every element is undesirable.  It's stated in the section on using screen readers properly -- Lesson 4, "Navigating Content" of Section 3 of this course -- which I had to watch multiple times as I tried to figure out how to use the keyboard with ChromeVox.
 
-It took a long time of debugging by fits and starts when I had the time before I found the bug in my asynchronous JavaScript that kept the service worker from caching the page correctly.  Rather than rewrite the service worker, as the previous reviewer suggested, I just kept working with it until I located the problems.  Probably, I could have finished much sooner if I had rewritten the script, but I honestly couldn't understand why it wasn't working.  I kept reading over a 'waitUntil' which should have been a 'respondWith", and then I was getting tripped-up by the fact that responses were being returned and consumed immediately, before "then" callbacks were trying to clone them.
+My service worker wasn't caching properly in the previous 2 submissions.  I believe I've found the bugs and fixed them.
 
 
 
