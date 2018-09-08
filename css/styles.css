@@ -15,7 +15,7 @@ body {
   flex-direction: column;
   justify-content: center;
 }
-ul, li {
+ul, ol, li {
 	font-family: Arial, Helvetica, sans-serif;
   /* font-size: 10pt; */
   font-size: 1em;
@@ -84,7 +84,7 @@ nav h1 a {
   text-transform: uppercase;
 }
 #breadcrumb {
-    padding: 10px 20px 15px;
+    padding: 10px 0px 10px;
     /*list-style: none;*/
     background-color: black;
     color: white;
